@@ -297,7 +297,7 @@ AES_ENTRY(aes_ctr_encrypt)
 	eor		v1.16b, v1.16b, v3.16b
 	st1		{v0.16b-v1.16b}, [x0], #32
 #else
-	ldr		q8, =0x30000000200000001	/* addends 1,2,3[,0] */
+	ldr		q8, .Lghash_poly	/* addends 1,2,3[,0] */
 	dup		v7.4s, w8
 	mov		v0.16b, v4.16b
 	add		v7.4s, v7.4s, v8.4s
@@ -362,6 +362,11 @@ AES_ENTRY(aes_ctr_encrypt)
 	b		.Lctrcarrydone
 AES_ENDPROC(aes_ctr_encrypt)
 	.ltorg
+
+.Lghash_poly:
+	.quad	0x0000000200000001
+	.quad	0x0000000000000003
+
 
 
 	/*
