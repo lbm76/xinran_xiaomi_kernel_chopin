@@ -33,7 +33,10 @@
 #include <linux/compat.h>
 
 #ifdef CONFIG_KSU_SUSFS
-#include <linux/susfs.h>
+#ifdef CONFIG_KSU_SUSFS
+#define SYSCALL_FAMILY_ALL_ENOENT 0
+int susfs_sus_path_by_filename(struct filename *name, int *error, int syscall_family);
+#endif
 #endif
 
 #include "internal.h"
